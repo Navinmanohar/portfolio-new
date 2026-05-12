@@ -1,11 +1,14 @@
+import re
+import uuid
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.schemas.chat import ChatRequest, ChatResponse
 from app.models.chat import ChatSession, ChatMessage
+from app.models.contact import ResumeRequest
 from app.services.rag import build_rag_messages
 from app.services.cerebras import chat_completion
-import uuid
+from app.services.email_service import send_resume_email
 
 router = APIRouter(prefix="/api/chat", tags=["chat"])
 
@@ -22,6 +25,24 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
 
     db.add(ChatMessage(session_id=session_id, role="user", content=request.message))
     db.commit()
+
+    # Detect email send requests
+    email_match = re.search(r"[\w.+-]+@[\w-]+\.[\w.-]+", request.message)
+    is_send_request = any(
+        kw in request.message.lower()
+        for kw in ["send", "mail", "email", "share", "forward"]
+    )
+
+    if email_match and is_send_request:
+        to_email = email_match.group()
+        req = ResumeRequest(email=to_email, company="Chat Request")
+        db.add(req)
+        db.commit()
+        await send_resume_email(to_email, "Chat Request")
+        reply = f"I've sent Navin's details and resume to {to_email}. Check your inbox!"
+        db.add(ChatMessage(session_id=session_id, role="assistant", content=reply))
+        db.commit()
+        return ChatResponse(reply=reply, session_id=session_id)
 
     history = (
         db.query(ChatMessage)
