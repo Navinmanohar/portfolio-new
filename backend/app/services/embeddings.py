@@ -1,36 +1,30 @@
 import numpy as np
 import re
-from collections import Counter
+import hashlib
 from functools import lru_cache
 
-
-def tokenize(text: str) -> list[str]:
-    return re.findall(r"\b[a-z]{2,}\b", text.lower())
+DIM = 384
 
 
-@lru_cache(maxsize=1)
-def get_idf():
-    from app.models.document import DocumentEmbedding
-    from app.database import SessionLocal
-    db = SessionLocal()
-    docs = db.query(DocumentEmbedding.content).all()
-    db.close()
-    n_docs = len(docs)
-    df: dict[str, int] = {}
-    for (content,) in docs:
-        for token in set(tokenize(content)):
-            df[token] = df.get(token, 0) + 1
-    return {token: np.log((1 + n_docs) / (1 + freq)) + 1 for token, freq in df.items()}
+def _hash_ngrams(text: str, n_start: int = 2, n_end: int = 5) -> list[int]:
+    tokens = re.findall(r"\b\w+\b", text.lower())
+    indices: list[int] = []
+    for token in tokens:
+        for n in range(n_start, min(n_end, len(token)) + 1):
+            for i in range(len(token) - n + 1):
+                ngram = token[i : i + n]
+                h = int(hashlib.md5(ngram.encode()).hexdigest(), 16)
+                indices.append(h % DIM)
+    return indices
 
 
 def generate_embedding(text: str) -> list[float]:
-    idf = get_idf()
-    tokens = tokenize(text)
-    if not tokens:
-        return [0.0] * len(idf) if idf else [0.0]
-    tf = Counter(tokens)
-    max_tf = max(tf.values())
-    vec = np.array([tf.get(token, 0) / max_tf * idf.get(token, 0) for token in idf])
+    indices = _hash_ngrams(text)
+    if not indices:
+        return [0.0] * DIM
+    vec = np.zeros(DIM)
+    for i in indices:
+        vec[i] += 1
     norm = np.linalg.norm(vec)
     if norm > 0:
         vec = vec / norm
