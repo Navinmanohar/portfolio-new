@@ -3,7 +3,7 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database import get_db
-from app.schemas.chat import ChatRequest, ChatResponse
+from app.schemas.chat import ChatRequest, ChatResponse, MessageOut
 from app.models.chat import ChatSession, ChatMessage
 from app.models.contact import ResumeRequest
 from app.services.rag import build_rag_messages
@@ -11,6 +11,18 @@ from app.services.cerebras import chat_completion
 from app.services.email_service import send_resume_email
 
 router = APIRouter(prefix="/api/chat", tags=["chat"])
+
+
+@router.get("/{session_id}")
+async def get_history(session_id: str, db: Session = Depends(get_db)):
+    messages = (
+        db.query(ChatMessage)
+        .filter_by(session_id=session_id)
+        .order_by(ChatMessage.created_at)
+        .limit(50)
+        .all()
+    )
+    return [MessageOut(role=m.role, content=m.content, created_at=m.created_at) for m in messages]
 
 
 @router.post("")
