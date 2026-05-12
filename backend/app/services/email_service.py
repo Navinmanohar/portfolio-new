@@ -3,7 +3,10 @@ from app.config import get_settings
 settings = get_settings()
 
 
-async def send_resume_email(to_email: str, company: str | None = None):
+async def send_resume_email(to_email: str, company: str | None = None) -> bool:
+    if not settings.resend_api_key:
+        print("RESEND_API_KEY not set — email not sent")
+        return False
     try:
         import resend
 
@@ -33,8 +36,8 @@ async def send_resume_email(to_email: str, company: str | None = None):
             "html": html,
         }
 
-        r = resend.Emails.send(params)
-        return r
+        resend.Emails.send(params)
+        return True
     except Exception as e:
         print(f"Email error: {e}")
-        return None
+        return False

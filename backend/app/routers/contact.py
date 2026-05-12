@@ -24,10 +24,11 @@ async def submit_contact(data: ContactCreate, db: Session = Depends(get_db)):
 
 @router.post("/resume")
 async def request_resume(data: ResumeRequestCreate, db: Session = Depends(get_db)):
-    req = ResumeRequest(email=data.email, company=data.company)
+    sent = await send_resume_email(data.email, data.company)
+    req = ResumeRequest(email=data.email, company=data.company, sent=sent)
     db.add(req)
     db.commit()
 
-    await send_resume_email(data.email, data.company)
-
-    return {"status": "ok", "message": "Resume sent to your email"}
+    if sent:
+        return {"status": "ok", "message": "Resume sent to your email"}
+    return {"status": "error", "message": "Failed to send email. Please check the API key."}

@@ -47,11 +47,14 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
 
     if email_match and is_send_request:
         to_email = email_match.group()
-        req = ResumeRequest(email=to_email, company="Chat Request")
+        sent = await send_resume_email(to_email, "Chat Request")
+        req = ResumeRequest(email=to_email, company="Chat Request", sent=sent)
         db.add(req)
         db.commit()
-        await send_resume_email(to_email, "Chat Request")
-        reply = f"I've sent Navin's details and resume to {to_email}. Check your inbox!"
+        if sent:
+            reply = f"I've sent Navin's details and resume to {to_email}. Check your inbox!"
+        else:
+            reply = "Sorry, I couldn't send the email right now. Please try using the 'Request Resume' button on the contact section."
         db.add(ChatMessage(session_id=session_id, role="assistant", content=reply))
         db.commit()
         return ChatResponse(reply=reply, session_id=session_id)
