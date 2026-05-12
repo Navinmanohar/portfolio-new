@@ -17,6 +17,7 @@ app.add_middleware(
         "http://localhost:3000",
         "https://navinmanohar.vercel.app",
         "https://portfolio-new-1-y2hn.onrender.com",
+        "https://portfolio-new-jscv.onrender.com",
     ],
     allow_credentials=True,
     allow_methods=["*"],
