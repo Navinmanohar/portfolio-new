@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, FileText, GitBranch } from "lucide-react";
+import { ArrowUpRight, FileText, GitBranch, Sparkles } from "lucide-react";
+import { useChat } from "@/components/ai-assistant/ChatContext";
 
 const floatingCards = [
   { label: "RAG Systems", sub: "Vector Search", x: "10%", y: "20%", delay: 0 },
@@ -11,6 +12,8 @@ const floatingCards = [
 ];
 
 export default function Hero() {
+  const { open: openChat } = useChat();
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-accent/[0.03] via-transparent to-transparent pointer-events-none" />
@@ -102,6 +105,13 @@ export default function Hero() {
                 <GitBranch className="w-3.5 h-3.5" />
                 GitHub
               </a>
+              <button
+                onClick={openChat}
+                className="inline-flex items-center gap-1.5 text-sm font-medium border border-accent/30 text-accent h-9 px-5 rounded-lg hover:bg-accent/10 transition-all"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                Ask AI
+              </button>
             </motion.div>
           </div>
 

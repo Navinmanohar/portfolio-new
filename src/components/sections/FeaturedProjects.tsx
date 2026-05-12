@@ -7,7 +7,13 @@ import {
   Layers,
   Brain,
   BarChart,
+  ChevronDown,
+  Database,
+  Globe,
+  Cog,
+  Search,
 } from "lucide-react";
+import { useState } from "react";
 
 const projects = [
   {
@@ -165,6 +171,8 @@ const projects = [
 ];
 
 export default function FeaturedProjects() {
+  const [archOpen, setArchOpen] = useState(false);
+
   return (
     <section id="projects" className="section-padding relative">
       <div className="section-container">
@@ -182,6 +190,117 @@ export default function FeaturedProjects() {
             Production-grade{" "}
             <span className="text-gradient-blue">AI & backend</span> systems
           </h2>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mb-10"
+        >
+          <button
+            onClick={() => setArchOpen(!archOpen)}
+            className="flex items-center gap-2 text-xs font-medium text-foreground/40 hover:text-foreground transition-colors mb-4"
+          >
+            <Cpu className="w-3.5 h-3.5" />
+            Architecture Overview
+            <ChevronDown
+              className={`w-3.5 h-3.5 transition-transform ${archOpen ? "rotate-180" : ""}`}
+            />
+          </button>
+
+          {archOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="bg-card border border-border rounded-2xl p-6 overflow-hidden"
+            >
+              <div className="grid sm:grid-cols-3 gap-6 text-center">
+                <div className="space-y-2">
+                  <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center mx-auto">
+                    <Globe className="w-5 h-5 text-accent" />
+                  </div>
+                  <div className="text-sm font-medium text-foreground">Frontend</div>
+                  <div className="text-[11px] text-foreground/40">
+                    Next.js 16 · React 19 · Tailwind CSS v4 · Framer Motion
+                  </div>
+                  <div className="text-[11px] text-foreground/30">
+                    Vercel (Deploy)
+                  </div>
+                  <div className="mt-2 flex justify-center gap-1">
+                    <span className="block w-1.5 h-1.5 rounded-full bg-accent/50" />
+                    <span className="block w-8 h-px bg-border self-center" />
+                    <span className="block w-1.5 h-1.5 rounded-full bg-accent/50" />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center mx-auto">
+                    <Cog className="w-5 h-5 text-accent" />
+                  </div>
+                  <div className="text-sm font-medium text-foreground">Backend</div>
+                  <div className="text-[11px] text-foreground/40">
+                    FastAPI · SQLAlchemy · Cerebras AI (LLaMA 3.1 8B) · JWT Auth
+                  </div>
+                  <div className="text-[11px] text-foreground/30">
+                    Render / Railway (Deploy)
+                  </div>
+                  <div className="mt-2 flex justify-center gap-1">
+                    <span className="block w-1.5 h-1.5 rounded-full bg-accent/50" />
+                    <span className="block w-8 h-px bg-border self-center" />
+                    <span className="block w-1.5 h-1.5 rounded-full bg-accent/50" />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center mx-auto">
+                    <Database className="w-5 h-5 text-accent" />
+                  </div>
+                  <div className="text-sm font-medium text-foreground">Data Layer</div>
+                  <div className="text-[11px] text-foreground/40">
+                    PostgreSQL · pgvector · Sentence Transformers · Resend
+                  </div>
+                  <div className="text-[11px] text-foreground/30">
+                    Neon / Supabase (DB)
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-border">
+                <div className="flex items-center gap-2 text-xs text-foreground/50 mb-3">
+                  <Search className="w-3.5 h-3.5" />
+                  RAG Pipeline Flow
+                </div>
+                <div className="flex flex-wrap items-center gap-2 text-[11px]">
+                  <span className="bg-accent/10 text-accent border border-accent/20 rounded-md px-2 py-1">
+                    User Query
+                  </span>
+                  <span className="text-foreground/20">→</span>
+                  <span className="bg-foreground/[0.04] text-foreground/60 border border-border rounded-md px-2 py-1">
+                    Embedding (384-d)
+                  </span>
+                  <span className="text-foreground/20">→</span>
+                  <span className="bg-foreground/[0.04] text-foreground/60 border border-border rounded-md px-2 py-1">
+                    pgvector Top-4
+                  </span>
+                  <span className="text-foreground/20">→</span>
+                  <span className="bg-foreground/[0.04] text-foreground/60 border border-border rounded-md px-2 py-1">
+                    Context Assembly
+                  </span>
+                  <span className="text-foreground/20">→</span>
+                  <span className="bg-accent/10 text-accent border border-accent/20 rounded-md px-2 py-1">
+                    Cerebras LLM
+                  </span>
+                  <span className="text-foreground/20">→</span>
+                  <span className="bg-foreground/[0.04] text-foreground/60 border border-border rounded-md px-2 py-1">
+                    Response
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+          )}
         </motion.div>
 
         <div className="grid gap-6">

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { ChatProvider } from "@/components/ai-assistant/ChatContext";
+import ChatWrapper from "@/components/ai-assistant/ChatWrapper";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -45,7 +47,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <body className="antialiased">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <ChatProvider>
+            {children}
+            <ChatWrapper />
+          </ChatProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

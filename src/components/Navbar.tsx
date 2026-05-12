@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/ThemeProvider";
-import { Sun, Moon } from "lucide-react";
+import { useChat } from "@/components/ai-assistant/ChatContext";
+import { Sun, Moon, Sparkles } from "lucide-react";
 
 const navItems = [
   { label: "About", href: "#about" },
@@ -18,6 +19,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const { theme, toggle } = useTheme();
+  const { open: openChat } = useChat();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -90,6 +92,13 @@ export default function Navbar() {
               <Moon className="w-3.5 h-3.5 text-foreground/70" />
             )}
           </button>
+          <button
+            onClick={openChat}
+            className="flex items-center gap-1.5 text-sm font-medium text-foreground/60 hover:text-foreground transition-colors"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            AI
+          </button>
           <a
             href="#contact"
             className="inline-flex items-center gap-1.5 text-sm font-medium bg-primary text-primary-foreground h-8 px-4 rounded-lg hover:bg-primary/90 transition-all"
@@ -159,6 +168,13 @@ export default function Navbar() {
                   {item.label}
                 </a>
               ))}
+              <button
+                onClick={() => { openChat(); setMobileOpen(false); }}
+                className="flex items-center gap-2 text-sm text-foreground/60 hover:text-foreground transition-colors py-2"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                AI Assistant
+              </button>
               <a
                 href="#contact"
                 onClick={() => setMobileOpen(false)}
