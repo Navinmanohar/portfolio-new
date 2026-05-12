@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     smtp_password: str = ""
     from_email: str = ""
     admin_email: str = ""
+    portfolio_url: str = "https://portfolio-new-jscv.onrender.com"
     embedding_model: str = "all-MiniLM-L6-v2"
     cerebras_model: str = "llama3.1-8b"
 
