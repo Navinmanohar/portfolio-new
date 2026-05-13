@@ -1,4 +1,5 @@
 import hashlib
+import bcrypt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import JWTError, jwt
@@ -6,11 +7,9 @@ from datetime import datetime, timedelta, timezone
 from app.config import get_settings
 from app.database import SessionLocal
 from app.models.user import User
-from passlib.context import CryptContext
 
 settings = get_settings()
 security = HTTPBearer()
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 def _hash_key(password: str) -> str:
@@ -27,11 +26,11 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
 
 
 def verify_password(plain: str, hashed: str) -> bool:
-    return pwd_context.verify(_hash_key(plain), hashed)
+    return bcrypt.checkpw(_hash_key(plain).encode(), hashed.encode())
 
 
 def get_password_hash(password: str) -> str:
-    return pwd_context.hash(_hash_key(password))
+    return bcrypt.hashpw(_hash_key(password).encode(), bcrypt.gensalt()).decode()
 
 
 def get_current_user(
