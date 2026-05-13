@@ -61,8 +61,8 @@ export default function Contact() {
           </h2>
 
           <p className="text-sm sm:text-base text-foreground/50 leading-relaxed mb-8">
-            Available for AI Engineering, Backend Engineering,
-            and Full Stack AI Product roles.
+            Available for AI Engineering, Full Stack Development,
+            and Backend Engineering roles.
           </p>
         </motion.div>
 

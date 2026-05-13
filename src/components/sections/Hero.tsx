@@ -53,6 +53,10 @@ export default function Hero() {
               </span>
               <span className="text-lg sm:text-xl text-foreground/40 mx-2">|</span>
               <span className="text-lg sm:text-xl text-foreground/70">
+                Full Stack Developer
+              </span>
+              <span className="text-lg sm:text-xl text-foreground/40 mx-2">|</span>
+              <span className="text-lg sm:text-xl text-foreground/70">
                 Backend Developer
               </span>
             </motion.div>

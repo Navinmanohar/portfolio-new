@@ -16,11 +16,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Navin Manohar | AI Engineer & Backend Developer",
+  title: "Navin Manohar | AI Engineer | Full Stack Developer | Backend Developer",
   description:
-    "AI Engineer and Backend Developer with 2+ years experience building production-grade AI systems, RAG pipelines, agentic AI, FastAPI/Node.js backends, and scalable APIs. Built 150+ APIs, AI hiring platforms, and enterprise systems.",
+    "AI Engineer | Full Stack Developer | Backend Developer with 2+ years experience building production-grade AI systems, RAG pipelines, agentic AI, FastAPI/Node.js backends, and scalable APIs. Built 150+ APIs, AI hiring platforms, and enterprise systems.",
   keywords: [
     "AI Engineer",
+    "Full Stack Developer",
     "Backend Developer",
     "RAG",
     "FastAPI",
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
     "Full Stack Engineer",
   ],
   openGraph: {
-    title: "Navin Manohar | AI Engineer & Backend Developer",
+    title: "Navin Manohar | AI Engineer | Full Stack Developer | Backend Developer",
     description:
       "Building scalable AI systems, enterprise backends, RAG pipelines, and intelligent automation products.",
     type: "website",
