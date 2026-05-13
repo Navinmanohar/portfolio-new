@@ -10,7 +10,7 @@ from app.config import get_settings
 settings = get_settings()
 
 RESUME_PATH = os.path.join(
-    os.path.dirname(__file__), "..", "..", "..", "public", "Navin_Manohar_Updated_resume.pdf"
+    os.path.dirname(__file__), "..", "..", "Navin_Manohar_Updated_resume.pdf"
 )
 
 
@@ -55,13 +55,13 @@ def _build_html(recipient_name: str) -> str:
                     </p>
                     <table role="presentation" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="padding:3px 0;"><a href="{settings.portfolio_url}" style="color:#2563eb;text-decoration:none;font-size:14px;">Portfolio &rarr;</a></td>
+                        <td style="padding:3px 0;"><strong style="color:#1a1a2e;font-size:14px;">Portfolio:</strong> <a href="{settings.portfolio_url}" style="color:#2563eb;text-decoration:none;font-size:14px;">{settings.portfolio_url}</a></td>
                       </tr>
                       <tr>
-                        <td style="padding:3px 0;"><a href="https://github.com/Navinmanohar" style="color:#2563eb;text-decoration:none;font-size:14px;">github.com/Navinmanohar &rarr;</a></td>
+                        <td style="padding:3px 0;"><strong style="color:#1a1a2e;font-size:14px;">GitHub:</strong> <a href="https://github.com/Navinmanohar" style="color:#2563eb;text-decoration:none;font-size:14px;">github.com/Navinmanohar</a></td>
                       </tr>
                       <tr>
-                        <td style="padding:3px 0;"><a href="https://linkedin.com/in/navin-manohar-48b1a5226" style="color:#2563eb;text-decoration:none;font-size:14px;">linkedin.com/in/navin-manohar &rarr;</a></td>
+                        <td style="padding:3px 0;"><strong style="color:#1a1a2e;font-size:14px;">LinkedIn:</strong> <a href="https://linkedin.com/in/navin-manohar-48b1a5226" style="color:#2563eb;text-decoration:none;font-size:14px;">linkedin.com/in/navin-manohar-48b1a5226</a></td>
                       </tr>
                     </table>
                   </td>
