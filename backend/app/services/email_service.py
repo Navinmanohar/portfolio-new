@@ -1,5 +1,6 @@
 import smtplib
 import os
+import re
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
@@ -13,51 +14,119 @@ RESUME_PATH = os.path.join(
 )
 
 
-def _build_html(company: str | None) -> str:
-    company_line = f" at {company}" if company else ""
-    return f"""
-<div style="font-family: system-ui, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; line-height: 1.6; color: #333;">
-  <p>Hi there{company_line},</p>
-  <p>Thank you for taking the time to view my profile.</p>
-  <p>
-    I&rsquo;m <strong>Navin Manohar</strong>, an AI Engineer and Backend Developer
-    with experience building scalable backend systems, RAG-based AI applications,
-    workflow automation platforms, and enterprise HRMS solutions.
-  </p>
+def _extract_name(email: str) -> str:
+    local = email.split("@")[0]
+    parts = re.split(r"[._\-]+", local)
+    cleaned = [re.sub(r"\d+", "", p).capitalize() for p in parts if re.sub(r"\d+", "", p)]
+    return cleaned[0] if cleaned else "there"
 
-  <p><strong>My Links:</strong></p>
-  <ul>
-    <li><strong>Portfolio:</strong> <a href="{settings.portfolio_url}">{settings.portfolio_url}</a></li>
-    <li><strong>GitHub:</strong> <a href="https://github.com/Navinmanohar">github.com/Navinmanohar</a></li>
-    <li><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/navin-manohar-48b1a5226">linkedin.com/in/navin-manohar-48b1a5226</a></li>
-  </ul>
 
-  <p><strong>Some highlights of my work:</strong></p>
-  <ul>
-    <li>Built 150+ production REST APIs</li>
-    <li>Developed AI-powered hiring and HRMS assistant systems</li>
-    <li>Experience with FastAPI, Node.js, PostgreSQL, Redis, RAG, and LLM integrations</li>
-    <li>Built scalable multi-tenant workflow and automation systems</li>
-  </ul>
+def _build_html(recipient_name: str) -> str:
+    name = _extract_name(recipient_name)
+    return f"""<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin:0;padding:0;background-color:#f4f4f5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f5;padding:20px 10px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="100%" style="max-width:560px;background-color:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
+          <tr>
+            <td style="padding:32px 32px 24px;line-height:1.7;color:#1a1a2e;font-size:15px;">
 
-  <p>
-    I&rsquo;d be happy to discuss how my experience in AI engineering, backend architecture,
-    and intelligent automation can contribute to your team.
-  </p>
+              <p style="margin:0 0 16px;">Hi {name},</p>
 
-  <p>
-    If you have any questions, feel free to reply to this email.
-  </p>
+              <p style="margin:0 0 16px;">Thank you for taking the time to view my profile.</p>
 
-  <p>
-    Best regards,<br/>
-    <strong>Navin Manohar</strong><br/>
-    AI Engineer | Backend Developer<br/>
-    <a href="mailto:navinmanohar78086@gmail.com">navinmanohar78086@gmail.com</a><br/>
-    <a href="https://github.com/Navinmanohar">github.com/Navinmanohar</a>
-  </p>
-</div>
-"""
+              <p style="margin:0 0 16px;">
+                I&rsquo;m <strong style="color:#2563eb;">Navin Manohar</strong>, an AI Engineer &amp; Backend Developer
+                with experience building scalable backend systems, AI-powered applications, RAG pipelines,
+                workflow automation platforms, and enterprise HRMS solutions.
+              </p>
+
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0;">
+                <tr>
+                  <td style="background-color:#f8fafc;border-radius:8px;padding:20px 24px;">
+                    <p style="margin:0 0 12px;font-weight:600;color:#1a1a2e;font-size:14px;text-transform:uppercase;letter-spacing:0.5px;">
+                      &#x1f517; My Links
+                    </p>
+                    <table role="presentation" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="padding:3px 0;"><a href="{settings.portfolio_url}" style="color:#2563eb;text-decoration:none;font-size:14px;">Portfolio &rarr;</a></td>
+                      </tr>
+                      <tr>
+                        <td style="padding:3px 0;"><a href="https://github.com/Navinmanohar" style="color:#2563eb;text-decoration:none;font-size:14px;">github.com/Navinmanohar &rarr;</a></td>
+                      </tr>
+                      <tr>
+                        <td style="padding:3px 0;"><a href="https://linkedin.com/in/navin-manohar-48b1a5226" style="color:#2563eb;text-decoration:none;font-size:14px;">linkedin.com/in/navin-manohar &rarr;</a></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0;">
+                <tr>
+                  <td style="background-color:#f8fafc;border-radius:8px;padding:20px 24px;">
+                    <p style="margin:0 0 12px;font-weight:600;color:#1a1a2e;font-size:14px;text-transform:uppercase;letter-spacing:0.5px;">
+                      &#x2728; Highlights
+                    </p>
+                    <table role="presentation" cellpadding="0" cellspacing="0">
+                      <tr><td style="padding:3px 0;color:#475569;font-size:14px;">&bull; Built 150+ production-grade REST APIs</td></tr>
+                      <tr><td style="padding:3px 0;color:#475569;font-size:14px;">&bull; Developed AI-powered hiring and HRMS assistant systems</td></tr>
+                      <tr><td style="padding:3px 0;color:#475569;font-size:14px;">&bull; Experience with FastAPI, Node.js, PostgreSQL, Redis, RAG, and LLM integrations</td></tr>
+                      <tr><td style="padding:3px 0;color:#475569;font-size:14px;">&bull; Designed scalable multi-tenant workflow and automation systems</td></tr>
+                      <tr><td style="padding:3px 0;color:#475569;font-size:14px;">&bull; Worked on enterprise backend architecture, cron automation, and AI integrations</td></tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin:0 0 16px;">
+                I&rsquo;d be happy to discuss how my experience in AI engineering, backend development,
+                and intelligent automation can contribute to your team.
+              </p>
+
+              <p style="margin:0 0 16px;">
+                If you have any questions, feel free to reply to this email.
+              </p>
+
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:32px;">
+                <tr>
+                  <td style="border-top:1px solid #e2e8f0;padding-top:20px;">
+                    <p style="margin:0 0 2px;color:#1a1a2e;font-weight:600;font-size:15px;">Best regards,</p>
+                    <p style="margin:0 0 2px;color:#1a1a2e;font-weight:600;font-size:15px;">Navin Manohar</p>
+                    <p style="margin:0 0 2px;color:#475569;font-size:13px;">AI Engineer &amp; Backend Developer</p>
+                    <p style="margin:0;color:#475569;font-size:13px;">
+                      <a href="mailto:navinmanohar78086@gmail.com" style="color:#2563eb;text-decoration:none;">navinmanohar78086@gmail.com</a>
+                    </p>
+                    <p style="margin:0;color:#475569;font-size:13px;">
+                      <a href="https://github.com/Navinmanohar" style="color:#2563eb;text-decoration:none;">github.com/Navinmanohar</a>
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+        </table>
+
+        <table role="presentation" width="100%" style="max-width:560px;">
+          <tr>
+            <td align="center" style="padding:16px 20px;color:#94a3b8;font-size:11px;">
+              Navin Manohar &mdash; AI Engineer &amp; Backend Developer
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+</body>
+</html>"""
 
 
 async def send_resume_email(to_email: str, company: str | None = None) -> bool:
@@ -68,9 +137,8 @@ async def send_resume_email(to_email: str, company: str | None = None) -> bool:
         msg = MIMEMultipart()
         msg["From"] = f"Navin Manohar <{settings.from_email}>"
         msg["To"] = to_email
-        company_line = f" at {company}" if company else ""
-        msg["Subject"] = f"Navin Manohar — Resume & Portfolio{company_line}"
-        msg.attach(MIMEText(_build_html(company), "html"))
+        msg["Subject"] = "Resume & Portfolio — Navin Manohar | AI Engineer & Backend Developer"
+        msg.attach(MIMEText(_build_html(to_email), "html"))
 
         if os.path.exists(RESUME_PATH):
             with open(RESUME_PATH, "rb") as f:
@@ -82,6 +150,8 @@ async def send_resume_email(to_email: str, company: str | None = None) -> bool:
                     f'attachment; filename="Navin_Manohar_Resume.pdf"',
                 )
                 msg.attach(part)
+        else:
+            print(f"Resume not found at {RESUME_PATH}")
 
         with smtplib.SMTP("smtp.gmail.com", 587) as server:
             server.starttls()
