@@ -81,12 +81,11 @@ export default function WhatIBuild() {
         </motion.div>
 
         <motion.div
-          style={{ opacity: 0 }}
           variants={container}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid md:grid-cols-3 gap-4"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4"
         >
           {cards.map((card) => (
             <motion.div
