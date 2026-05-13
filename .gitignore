@@ -52,3 +52,4 @@ backend/bin/
 backend/lib/
 backend/include/
 backend/pip-selfcheck.json
+backend/seed_data.py
