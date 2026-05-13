@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ChatProvider } from "@/components/ai-assistant/ChatContext";
 import ChatWrapper from "@/components/ai-assistant/ChatWrapper";
+import VisitorTracker from "@/components/VisitorTracker";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -51,6 +52,7 @@ export default function RootLayout({
         <ThemeProvider>
           <ChatProvider>
             {children}
+            <VisitorTracker />
             <ChatWrapper />
           </ChatProvider>
         </ThemeProvider>
