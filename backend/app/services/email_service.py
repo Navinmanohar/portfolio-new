@@ -42,7 +42,7 @@ def _build_html(recipient_name: str) -> str:
               <p style="margin:0 0 16px;">Thank you for taking the time to view my profile.</p>
 
               <p style="margin:0 0 16px;">
-                I&rsquo;m <strong style="color:#2563eb;">Navin Manohar</strong>, an AI Engineer &amp; Backend Developer
+                I&rsquo;m <strong style="color:#2563eb;">Navin Manohar</strong>, an AI Engineer | Full Stack Developer | Backend Developer
                 with experience building scalable backend systems, AI-powered applications, RAG pipelines,
                 workflow automation platforms, and enterprise HRMS solutions.
               </p>
@@ -99,7 +99,7 @@ def _build_html(recipient_name: str) -> str:
                   <td style="border-top:1px solid #e2e8f0;padding-top:20px;">
                     <p style="margin:0 0 2px;color:#1a1a2e;font-weight:600;font-size:15px;">Best regards,</p>
                     <p style="margin:0 0 2px;color:#1a1a2e;font-weight:600;font-size:15px;">Navin Manohar</p>
-                    <p style="margin:0 0 2px;color:#475569;font-size:13px;">AI Engineer &amp; Backend Developer</p>
+                    <p style="margin:0 0 2px;color:#475569;font-size:13px;">AI Engineer | Full Stack Developer | Backend Developer</p>
                     <p style="margin:0;color:#475569;font-size:13px;">
                       <a href="mailto:navinmanohar78086@gmail.com" style="color:#2563eb;text-decoration:none;">navinmanohar78086@gmail.com</a>
                     </p>
@@ -117,7 +117,7 @@ def _build_html(recipient_name: str) -> str:
         <table role="presentation" width="100%" style="max-width:560px;">
           <tr>
             <td align="center" style="padding:16px 20px;color:#94a3b8;font-size:11px;">
-              Navin Manohar &mdash; AI Engineer &amp; Backend Developer
+              Navin Manohar &mdash; AI Engineer | Full Stack Developer | Backend Developer
             </td>
           </tr>
         </table>
@@ -137,7 +137,7 @@ async def send_resume_email(to_email: str, company: str | None = None) -> bool:
         msg = MIMEMultipart()
         msg["From"] = f"Navin Manohar <{settings.from_email}>"
         msg["To"] = to_email
-        msg["Subject"] = "Resume & Portfolio — Navin Manohar | AI Engineer & Backend Developer"
+        msg["Subject"] = "Resume & Portfolio — Navin Manohar | AI Engineer | Full Stack Developer | Backend Developer"
         msg.attach(MIMEText(_build_html(to_email), "html"))
 
         if os.path.exists(RESUME_PATH):
