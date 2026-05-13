@@ -1,9 +1,15 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import text
 from app.database import engine, Base
 from app.routers import chat, contact, analytics, auth
 
 Base.metadata.create_all(bind=engine)
+
+with engine.connect() as conn:
+    for col, dtype in [("page", "VARCHAR(500)"), ("duration_seconds", "INTEGER")]:
+        conn.execute(text(f"ALTER TABLE visitor_logs ADD COLUMN IF NOT EXISTS {col} {dtype}"))
+    conn.commit()
 
 app = FastAPI(
     title="Navin Manohar — Portfolio API",
@@ -16,7 +22,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "https://navinmanohar.vercel.app",
-        "https://portfolio-new-azure-tau.vercel.app"
+        "https://portfolio-new-azure-tau.vercel.app",
         "https://portfolio-new-1-y2hn.onrender.com",
         "https://portfolio-new-jscv.onrender.com",
     ],

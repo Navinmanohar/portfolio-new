@@ -25,6 +25,7 @@ interface Visitor {
   device: string | null;
   browser: string | null;
   session_id: string | null;
+  page: string | null;
   visited_at: string;
 }
 
@@ -147,6 +148,7 @@ export default function AdminDashboard() {
                   <tr className="text-foreground/40 border-b border-border">
                     <th className="pb-2 pr-4 font-medium">IP</th>
                     <th className="pb-2 pr-4 font-medium">Referrer</th>
+                    <th className="pb-2 pr-4 font-medium">Page</th>
                     <th className="pb-2 pr-4 font-medium">Browser</th>
                     <th className="pb-2 pr-4 font-medium">Device</th>
                     <th className="pb-2 font-medium">Time</th>
@@ -156,7 +158,12 @@ export default function AdminDashboard() {
                   {visitors.map((v, i) => (
                     <tr key={v.session_id || i} className="border-b border-border/50 text-foreground/70">
                       <td className="py-2 pr-4 font-mono text-accent">{v.ip || "—"}</td>
-                      <td className="py-2 pr-4 max-w-[200px] truncate">{v.referrer || "Direct"}</td>
+                      <td className="py-2 pr-4 max-w-[200px] truncate">
+                        {v.referrer ? (
+                          <a href={v.referrer} target="_blank" rel="noreferrer" className="hover:text-accent transition-colors">{v.referrer}</a>
+                        ) : "Direct"}
+                      </td>
+                      <td className="py-2 pr-4 font-mono text-foreground/50">{v.page || "/"}</td>
                       <td className="py-2 pr-4">{v.browser || "—"}</td>
                       <td className="py-2 pr-4">{v.device || "—"}</td>
                       <td className="py-2 whitespace-nowrap">{v.visited_at ? new Date(v.visited_at).toLocaleString() : "—"}</td>

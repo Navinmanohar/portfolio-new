@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 const API_URL = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").replace(/\/+$/, "");
 
@@ -29,21 +30,22 @@ function getDevice(): string {
 }
 
 export default function VisitorTracker() {
+  const pathname = usePathname();
+
   useEffect(() => {
-    const session_id = getSessionId();
     const data = {
-      session_id,
+      session_id: getSessionId(),
       referrer: document.referrer || null,
       device: getDevice(),
       browser: getBrowser(),
+      page: pathname,
     };
-
     fetch(`${API_URL}/api/analytics/visit`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     }).catch(() => {});
-  }, []);
+  }, [pathname]);
 
   return null;
 }

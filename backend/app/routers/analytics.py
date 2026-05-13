@@ -24,6 +24,7 @@ async def track_visit(
         referrer=data.referrer,
         device=data.device,
         browser=data.browser,
+        page=data.page,
     )
     db.add(log)
     db.commit()
@@ -58,6 +59,7 @@ async def visitors(db: Session = Depends(get_db), user=Depends(get_current_user)
             "device": v.device,
             "browser": v.browser,
             "session_id": v.session_id,
+            "page": v.page,
             "visited_at": v.visit_time.isoformat() if v.visit_time else None,
         }
         for v in logs

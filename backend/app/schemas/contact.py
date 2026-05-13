@@ -20,6 +20,7 @@ class VisitorLogCreate(BaseModel):
     referrer: Optional[str] = None
     device: Optional[str] = None
     browser: Optional[str] = None
+    page: Optional[str] = None
 
 
 class ProjectViewCreate(BaseModel):

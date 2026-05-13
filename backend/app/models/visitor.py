@@ -13,4 +13,6 @@ class VisitorLog(Base):
     browser = Column(String(255), nullable=True)
     referrer = Column(Text, nullable=True)
     session_id = Column(String(255), nullable=True)
+    page = Column(String(500), nullable=True)
+    duration_seconds = Column(Integer, nullable=True)
     visit_time = Column(DateTime(timezone=True), server_default=func.now())
