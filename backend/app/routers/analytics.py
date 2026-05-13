@@ -16,8 +16,10 @@ async def track_visit(
     request: Request,
     db: Session = Depends(get_db),
 ):
+    forwarded = request.headers.get("x-forwarded-for", "")
+    ip = forwarded.split(",")[0].strip() if forwarded else (request.client.host if request.client else None)
     log = VisitorLog(
-        ip=request.client.host if request.client else None,
+        ip=ip,
         session_id=data.session_id,
         referrer=data.referrer,
         device=data.device,
@@ -39,3 +41,24 @@ async def track_project_view(data: ProjectViewCreate, db: Session = Depends(get_
 @router.get("/dashboard")
 async def dashboard(db: Session = Depends(get_db), user=Depends(get_current_user)):
     return get_dashboard_stats(db)
+
+
+@router.get("/visitors")
+async def visitors(db: Session = Depends(get_db), user=Depends(get_current_user)):
+    logs = (
+        db.query(VisitorLog)
+        .order_by(VisitorLog.visit_time.desc())
+        .limit(100)
+        .all()
+    )
+    return [
+        {
+            "ip": v.ip,
+            "referrer": v.referrer,
+            "device": v.device,
+            "browser": v.browser,
+            "session_id": v.session_id,
+            "visited_at": v.visit_time.isoformat() if v.visit_time else None,
+        }
+        for v in logs
+    ]

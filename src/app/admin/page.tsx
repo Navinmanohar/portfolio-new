@@ -19,8 +19,18 @@ interface DashboardData {
   top_projects: { name: string; views: number }[];
 }
 
+interface Visitor {
+  ip: string;
+  referrer: string | null;
+  device: string | null;
+  browser: string | null;
+  session_id: string | null;
+  visited_at: string;
+}
+
 export default function AdminDashboard() {
   const [data, setData] = useState<DashboardData | null>(null);
+  const [visitors, setVisitors] = useState<Visitor[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const router = useRouter();
@@ -32,21 +42,26 @@ export default function AdminDashboard() {
       return;
     }
 
-    fetch(`${API_URL}/api/analytics/dashboard`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((res) => {
-        if (res.status === 401) {
-          localStorage.removeItem("admin_token");
-          router.replace("/admin/login");
-          return null;
-        }
-        return res.json();
+    const headers = { Authorization: `Bearer ${token}` };
+
+    Promise.all([
+      fetch(`${API_URL}/api/analytics/dashboard`, { headers }).then((r) => {
+        if (r.status === 401) throw new Error("unauthorized");
+        return r.json();
+      }),
+      fetch(`${API_URL}/api/analytics/visitors`, { headers }).then((r) => {
+        if (r.status === 401) throw new Error("unauthorized");
+        return r.json();
+      }),
+    ])
+      .then(([dashboardData, visitorsData]) => {
+        setData(dashboardData);
+        setVisitors(visitorsData);
       })
-      .then((data) => {
-        if (data) setData(data);
+      .catch(() => {
+        localStorage.removeItem("admin_token");
+        router.replace("/admin/login");
       })
-      .catch(() => setError("Failed to load analytics"))
       .finally(() => setLoading(false));
   }, [router]);
 
@@ -120,6 +135,38 @@ export default function AdminDashboard() {
         {data?.top_projects && data.top_projects.length > 0 && (
           <ProjectViewsChart topProjects={data.top_projects} />
         )}
+
+        <section className="mt-10">
+          <h2 className="text-sm font-medium text-foreground mb-4">Recent Visitors</h2>
+          {visitors.length === 0 ? (
+            <p className="text-xs text-foreground/40">No visitors yet</p>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs text-left">
+                <thead>
+                  <tr className="text-foreground/40 border-b border-border">
+                    <th className="pb-2 pr-4 font-medium">IP</th>
+                    <th className="pb-2 pr-4 font-medium">Referrer</th>
+                    <th className="pb-2 pr-4 font-medium">Browser</th>
+                    <th className="pb-2 pr-4 font-medium">Device</th>
+                    <th className="pb-2 font-medium">Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {visitors.map((v, i) => (
+                    <tr key={v.session_id || i} className="border-b border-border/50 text-foreground/70">
+                      <td className="py-2 pr-4 font-mono text-accent">{v.ip || "—"}</td>
+                      <td className="py-2 pr-4 max-w-[200px] truncate">{v.referrer || "Direct"}</td>
+                      <td className="py-2 pr-4">{v.browser || "—"}</td>
+                      <td className="py-2 pr-4">{v.device || "—"}</td>
+                      <td className="py-2 whitespace-nowrap">{v.visited_at ? new Date(v.visited_at).toLocaleString() : "—"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
       </main>
     </div>
   );
