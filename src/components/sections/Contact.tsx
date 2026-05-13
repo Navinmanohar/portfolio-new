@@ -45,6 +45,7 @@ export default function Contact() {
 
       <div className="section-container">
         <motion.div
+          style={{ opacity: 0 }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -67,6 +68,7 @@ export default function Contact() {
         </motion.div>
 
         <motion.div
+          style={{ opacity: 0 }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -171,6 +173,7 @@ export default function Contact() {
         </motion.div>
 
         <motion.div
+          style={{ opacity: 0 }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -195,6 +198,7 @@ export default function Contact() {
         </motion.div>
 
         <motion.div
+          style={{ opacity: 0 }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}

@@ -23,6 +23,7 @@ export default function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="relative z-10">
             <motion.div
+              style={{ opacity: 0 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -34,6 +35,7 @@ export default function Hero() {
             </motion.div>
 
             <motion.h1
+              style={{ opacity: 0 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
@@ -43,6 +45,7 @@ export default function Hero() {
             </motion.h1>
 
             <motion.div
+              style={{ opacity: 0 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -62,6 +65,7 @@ export default function Hero() {
             </motion.div>
 
             <motion.p
+              style={{ opacity: 0 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.25 }}
@@ -71,6 +75,7 @@ export default function Hero() {
             </motion.p>
 
             <motion.p
+              style={{ opacity: 0 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
@@ -80,6 +85,7 @@ export default function Hero() {
             </motion.p>
 
             <motion.div
+              style={{ opacity: 0 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.35 }}
@@ -124,6 +130,7 @@ export default function Hero() {
               {floatingCards.map((card) => (
                 <motion.div
                   key={card.label}
+                  style={{ opacity: 0, left: card.x, top: card.y }}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{
@@ -132,7 +139,6 @@ export default function Hero() {
                     ease: "easeOut",
                   }}
                   className="absolute"
-                  style={{ left: card.x, top: card.y }}
                 >
                   <motion.div
                     animate={{ y: [0, -6, 0] }}
@@ -153,6 +159,7 @@ export default function Hero() {
               ))}
 
               <motion.div
+                style={{ opacity: 0 }}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.6 }}

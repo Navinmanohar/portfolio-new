@@ -31,6 +31,7 @@ export default function About() {
     <section id="about" className="section-padding relative">
       <div className="section-container">
         <motion.div
+          style={{ opacity: 0 }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -58,6 +59,7 @@ export default function About() {
             {highlights.map((item, i) => (
               <motion.div
                 key={item.label}
+                style={{ opacity: 0 }}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}

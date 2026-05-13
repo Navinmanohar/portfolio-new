@@ -177,6 +177,7 @@ export default function FeaturedProjects() {
     <section id="projects" className="section-padding relative">
       <div className="section-container">
         <motion.div
+          style={{ opacity: 0 }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -193,6 +194,7 @@ export default function FeaturedProjects() {
         </motion.div>
 
         <motion.div
+          style={{ opacity: 0 }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -212,6 +214,7 @@ export default function FeaturedProjects() {
 
           {archOpen && (
             <motion.div
+              style={{ opacity: 0 }}
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
@@ -307,6 +310,7 @@ export default function FeaturedProjects() {
           {projects.map((project, idx) => (
             <motion.article
               key={project.title}
+              style={{ opacity: 0 }}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}

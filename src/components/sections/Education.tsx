@@ -36,6 +36,7 @@ export default function Education() {
     <section className="section-padding relative">
       <div className="section-container">
         <motion.div
+          style={{ opacity: 0 }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -55,6 +56,7 @@ export default function Education() {
           {education.map((edu, idx) => (
             <motion.div
               key={edu.school}
+              style={{ opacity: 0 }}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
@@ -83,6 +85,7 @@ export default function Education() {
         </div>
 
         <motion.div
+          style={{ opacity: 0 }}
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}

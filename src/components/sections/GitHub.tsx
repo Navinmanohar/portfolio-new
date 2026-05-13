@@ -32,6 +32,7 @@ export default function GitHub() {
     <section className="section-padding relative">
       <div className="section-container">
         <motion.div
+          style={{ opacity: 0 }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -54,6 +55,7 @@ export default function GitHub() {
               href={`https://github.com/Navinmanohar/${repo.name}`}
               target="_blank"
               rel="noopener noreferrer"
+              style={{ opacity: 0 }}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
@@ -89,6 +91,7 @@ export default function GitHub() {
         </div>
 
         <motion.div
+          style={{ opacity: 0 }}
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}

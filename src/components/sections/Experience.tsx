@@ -36,6 +36,7 @@ export default function Experience() {
     <section id="experience" className="section-padding relative">
       <div className="section-container">
         <motion.div
+          style={{ opacity: 0 }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -58,6 +59,7 @@ export default function Experience() {
             {experiences.map((exp, idx) => (
               <motion.div
                 key={exp.company}
+                style={{ opacity: 0 }}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
