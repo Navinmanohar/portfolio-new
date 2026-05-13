@@ -26,7 +26,7 @@ def verify_password(plain: str, hashed: str) -> bool:
 
 
 def get_password_hash(password: str) -> str:
-    return pwd_context.hash(password)
+    return pwd_context.hash(password.encode("utf-8")[:72].decode("utf-8", errors="ignore"))
 
 
 def get_current_user(
