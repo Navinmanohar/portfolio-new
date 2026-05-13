@@ -9,7 +9,7 @@ interface Message {
   content: string;
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API_URL = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").replace(/\/+$/, "");
 const STORAGE_KEY = "ai_chat_session_id";
 
 export default function AIChatDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -19,6 +19,7 @@ export default function AIChatDialog({ open, onClose }: { open: boolean; onClose
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [initialLoading, setInitialLoading] = useState(true);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -57,6 +58,9 @@ export default function AIChatDialog({ open, onClose }: { open: boolean; onClose
     const userMsg: Message = { role: "user", content: input };
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+    }
     setLoading(true);
 
     try {
@@ -155,13 +159,20 @@ export default function AIChatDialog({ open, onClose }: { open: boolean; onClose
           </div>
 
           <div className="border-t border-border p-3">
-            <div className="flex gap-2">
-              <input
+            <div className="flex gap-2 items-end">
+              <textarea
+                ref={textareaRef}
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={(e) => {
+                  setInput(e.target.value);
+                  const el = e.currentTarget;
+                  el.style.height = "auto";
+                  el.style.height = Math.min(el.scrollHeight, 128) + "px";
+                }}
                 onKeyDown={handleKeyDown}
                 placeholder="Ask about my experience..."
-                className="flex-1 bg-muted border border-border rounded-xl px-3 py-2 text-sm text-foreground placeholder:text-foreground/30 outline-none focus:border-accent/50 transition-colors"
+                rows={1}
+                className="flex-1 bg-muted border border-border rounded-xl px-3 py-2 text-sm text-foreground placeholder:text-foreground/30 outline-none focus:border-accent/50 transition-colors resize-none max-h-32"
               />
               <button
                 onClick={handleSend}

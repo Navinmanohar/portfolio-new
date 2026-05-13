@@ -22,6 +22,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "https://navinmanohar.vercel.app",
+        "https://portfolio-new-osvn.vercel.app"
         "https://portfolio-new-azure-tau.vercel.app",
         "https://portfolio-new-1-y2hn.onrender.com",
         "https://portfolio-new-jscv.onrender.com",
