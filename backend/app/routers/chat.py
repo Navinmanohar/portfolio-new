@@ -40,12 +40,22 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
 
     # Detect email send requests
     email_match = re.search(r"[\w.+-]+@[\w-]+\.[\w.-]+", request.message)
-    is_send_request = any(
-        kw in request.message.lower()
-        for kw in ["send", "mail", "email", "share", "forward"]
+    msg_lower = request.message.lower()
+    is_send_request = any(kw in msg_lower for kw in ["send", "mail", "email", "share", "forward"])
+
+    # Check if last assistant message was asking for email
+    last_assistant = (
+        db.query(ChatMessage)
+        .filter_by(session_id=session_id, role="assistant")
+        .order_by(ChatMessage.created_at.desc())
+        .first()
+    )
+    asked_for_email = last_assistant and any(
+        phrase in last_assistant.content.lower()
+        for phrase in ["your email", "provide your email", "share your email", "what.*email"]
     )
 
-    if email_match and is_send_request:
+    if email_match and (is_send_request or asked_for_email):
         to_email = email_match.group()
         sent = await send_resume_email(to_email, "Chat Request")
         req = ResumeRequest(email=to_email, company="Chat Request", sent=sent)
@@ -55,6 +65,12 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
             reply = f"I've sent Navin's details and resume to {to_email}. Check your inbox!"
         else:
             reply = "Sorry, I couldn't send the email right now. Please try using the 'Request Resume' button on the contact section."
+        db.add(ChatMessage(session_id=session_id, role="assistant", content=reply))
+        db.commit()
+        return ChatResponse(reply=reply, session_id=session_id)
+
+    if is_send_request and not email_match:
+        reply = "Sure! Please share your email address and I'll send Navin's details and resume right away."
         db.add(ChatMessage(session_id=session_id, role="assistant", content=reply))
         db.commit()
         return ChatResponse(reply=reply, session_id=session_id)
