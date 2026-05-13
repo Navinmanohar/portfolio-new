@@ -41,10 +41,15 @@ def _build_html(recipient_name: str) -> str:
 
               <p style="margin:0 0 16px;">Thank you for taking the time to view my profile.</p>
 
+              <p style="margin:0 0 4px;font-size:17px;font-weight:700;color:#1a1a2e;"><strong>Navin Manohar</strong></p>
+              <p style="margin:0 0 16px;color:#475569;font-size:13px;">AI Engineer | Full Stack Developer | Backend Developer</p>
+
               <p style="margin:0 0 16px;">
-                I&rsquo;m <strong style="color:#2563eb;">Navin Manohar</strong>, an AI Engineer | Full Stack Developer | Backend Developer
-                with experience building scalable backend systems, AI-powered applications, RAG pipelines,
-                workflow automation platforms, and enterprise HRMS solutions.
+                Building scalable AI systems, enterprise backends, RAG pipelines, and intelligent automation products.
+              </p>
+
+              <p style="margin:0 0 16px;">
+                2+ years of experience building production-grade APIs, AI applications, multi-tenant systems, and workflow automation &mdash; with measurable impact: 150+ APIs.
               </p>
 
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0;">
