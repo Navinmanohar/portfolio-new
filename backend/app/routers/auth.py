@@ -20,24 +20,19 @@ async def login(data: LoginRequest, db: Session = Depends(get_db)):
 
 @router.post("/setup", response_model=TokenResponse)
 async def setup_admin(data: LoginRequest, db: Session = Depends(get_db)):
-    try:
-        from app.services.auth import get_password_hash
+    from app.services.auth import get_password_hash
 
-        existing = db.query(User).filter_by(email=data.email).first()
-        if existing:
-            raise HTTPException(status_code=400, detail="Admin already exists")
+    existing = db.query(User).filter_by(email=data.email).first()
+    if existing:
+        raise HTTPException(status_code=400, detail="Admin already exists")
 
-        user = User(
-            email=data.email,
-            password_hash=get_password_hash(data.password),
-            role="admin",
-        )
-        db.add(user)
-        db.commit()
+    user = User(
+        email=data.email,
+        password_hash=get_password_hash(data.password),
+        role="admin",
+    )
+    db.add(user)
+    db.commit()
 
-        token = create_access_token({"sub": user.email})
-        return TokenResponse(access_token=token)
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Setup failed: {e}")
+    token = create_access_token({"sub": user.email})
+    return TokenResponse(access_token=token)

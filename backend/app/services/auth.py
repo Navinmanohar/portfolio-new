@@ -1,3 +1,4 @@
+import hashlib
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import JWTError, jwt
@@ -12,6 +13,10 @@ security = HTTPBearer()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
+def _hash_key(password: str) -> str:
+    return hashlib.sha256(password.encode()).hexdigest()
+
+
 def create_access_token(data: dict, expires_delta: timedelta | None = None):
     to_encode = data.copy()
     expire = datetime.now(timezone.utc) + (
@@ -22,11 +27,11 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
 
 
 def verify_password(plain: str, hashed: str) -> bool:
-    return pwd_context.verify(plain, hashed)
+    return pwd_context.verify(_hash_key(plain), hashed)
 
 
 def get_password_hash(password: str) -> str:
-    return pwd_context.hash(password.encode("utf-8")[:72].decode("utf-8", errors="ignore"))
+    return pwd_context.hash(_hash_key(password))
 
 
 def get_current_user(
