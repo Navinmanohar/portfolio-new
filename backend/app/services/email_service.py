@@ -167,3 +167,40 @@ async def send_resume_email(to_email: str, company: str | None = None) -> bool:
     except Exception as e:
         print(f"Email error: {e}")
         return False
+
+
+async def send_contact_notification(name: str, email: str, message: str, company: str | None = None, role: str | None = None) -> bool:
+    if not settings.smtp_email or not settings.smtp_password:
+        print("SMTP credentials not set — email not sent")
+        return False
+    try:
+        msg = MIMEMultipart()
+        msg["From"] = f"Navin Manohar <{settings.from_email}>"
+        msg["To"] = settings.from_email
+        msg["Subject"] = f"Portfolio Contact — {name} ({email})"
+
+        body = f"""
+<div style="font-family: system-ui, sans-serif; max-width: 560px; margin: 0 auto; padding: 20px;">
+  <h2 style="color: #1a1a2e; margin-bottom: 20px;">New Contact Message</h2>
+  <table style="width: 100%; border-collapse: collapse;">
+    <tr><td style="padding: 8px 0; color: #475569; font-size: 13px; width: 80px;">Name</td><td style="padding: 8px 0; color: #1a1a2e; font-size: 14px;"><strong>{name}</strong></td></tr>
+    <tr><td style="padding: 8px 0; color: #475569; font-size: 13px;">Email</td><td style="padding: 8px 0; color: #2563eb; font-size: 14px;"><a href="mailto:{email}" style="color: #2563eb;">{email}</a></td></tr>
+    {f'<tr><td style="padding: 8px 0; color: #475569; font-size: 13px;">Company</td><td style="padding: 8px 0; color: #1a1a2e; font-size: 14px;">{company}</td></tr>' if company else ''}
+    {f'<tr><td style="padding: 8px 0; color: #475569; font-size: 13px;">Role</td><td style="padding: 8px 0; color: #1a1a2e; font-size: 14px;">{role}</td></tr>' if role else ''}
+  </table>
+  <div style="margin-top: 20px; padding: 16px; background: #f8fafc; border-radius: 8px;">
+    <p style="margin: 0 0 8px; color: #475569; font-size: 13px; font-weight: 600;">Message:</p>
+    <p style="margin: 0; color: #1a1a2e; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">{message}</p>
+  </div>
+</div>"""
+        msg.attach(MIMEText(body, "html"))
+
+        with smtplib.SMTP("smtp.gmail.com", 587) as server:
+            server.starttls()
+            server.login(settings.smtp_email, settings.smtp_password)
+            server.sendmail(settings.from_email, [settings.from_email], msg.as_string())
+
+        return True
+    except Exception as e:
+        print(f"Contact notification error: {e}")
+        return False

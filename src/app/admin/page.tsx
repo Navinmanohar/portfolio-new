@@ -29,9 +29,29 @@ interface Visitor {
   visited_at: string;
 }
 
+interface ContactMsg {
+  id: number;
+  name: string;
+  email: string;
+  message: string;
+  company: string | null;
+  role: string | null;
+  created_at: string;
+}
+
+interface ResumeReq {
+  id: number;
+  email: string;
+  company: string | null;
+  sent: boolean;
+  created_at: string;
+}
+
 export default function AdminDashboard() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [visitors, setVisitors] = useState<Visitor[]>([]);
+  const [messages, setMessages] = useState<ContactMsg[]>([]);
+  const [resumeReqs, setResumeReqs] = useState<ResumeReq[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const router = useRouter();
@@ -54,10 +74,20 @@ export default function AdminDashboard() {
         if (r.status === 401) throw new Error("unauthorized");
         return r.json();
       }),
+      fetch(`${API_URL}/api/analytics/messages`, { headers }).then((r) => {
+        if (r.status === 401) throw new Error("unauthorized");
+        return r.json();
+      }),
+      fetch(`${API_URL}/api/analytics/resume-requests`, { headers }).then((r) => {
+        if (r.status === 401) throw new Error("unauthorized");
+        return r.json();
+      }),
     ])
-      .then(([dashboardData, visitorsData]) => {
+      .then(([dashboardData, visitorsData, messagesData, resumeData]) => {
         setData(dashboardData);
         setVisitors(visitorsData);
+        setMessages(messagesData);
+        setResumeReqs(resumeData);
       })
       .catch(() => {
         localStorage.removeItem("admin_token");
@@ -136,6 +166,68 @@ export default function AdminDashboard() {
         {data?.top_projects && data.top_projects.length > 0 && (
           <ProjectViewsChart topProjects={data.top_projects} />
         )}
+
+        <section className="mt-10">
+          <h2 className="text-sm font-medium text-foreground mb-4">Contact Messages</h2>
+          {messages.length === 0 ? (
+            <p className="text-xs text-foreground/40">No messages yet</p>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs text-left">
+                <thead>
+                  <tr className="text-foreground/40 border-b border-border">
+                    <th className="pb-2 pr-4 font-medium">Name</th>
+                    <th className="pb-2 pr-4 font-medium">Email</th>
+                    <th className="pb-2 pr-4 font-medium">Company</th>
+                    <th className="pb-2 pr-4 font-medium">Message</th>
+                    <th className="pb-2 font-medium">Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {messages.map((m) => (
+                    <tr key={m.id} className="border-b border-border/50 text-foreground/70">
+                      <td className="py-2 pr-4 font-medium text-foreground">{m.name}</td>
+                      <td className="py-2 pr-4"><a href={`mailto:${m.email}`} className="text-accent hover:underline">{m.email}</a></td>
+                      <td className="py-2 pr-4">{m.company || "—"}</td>
+                      <td className="py-2 pr-4 max-w-[300px] truncate" title={m.message}>{m.message}</td>
+                      <td className="py-2 whitespace-nowrap">{m.created_at ? new Date(m.created_at).toLocaleString() : "—"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+
+        <section className="mt-10">
+          <h2 className="text-sm font-medium text-foreground mb-4">Resume Requests</h2>
+          {resumeReqs.length === 0 ? (
+            <p className="text-xs text-foreground/40">No requests yet</p>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs text-left">
+                <thead>
+                  <tr className="text-foreground/40 border-b border-border">
+                    <th className="pb-2 pr-4 font-medium">Email</th>
+                    <th className="pb-2 pr-4 font-medium">Company</th>
+                    <th className="pb-2 pr-4 font-medium">Delivered</th>
+                    <th className="pb-2 font-medium">Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {resumeReqs.map((r) => (
+                    <tr key={r.id} className="border-b border-border/50 text-foreground/70">
+                      <td className="py-2 pr-4"><a href={`mailto:${r.email}`} className="text-accent hover:underline">{r.email}</a></td>
+                      <td className="py-2 pr-4">{r.company || "—"}</td>
+                      <td className="py-2 pr-4">{r.sent ? <span className="text-green-500">Yes</span> : <span className="text-red-400">No</span>}</td>
+                      <td className="py-2 whitespace-nowrap">{r.created_at ? new Date(r.created_at).toLocaleString() : "—"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
 
         <section className="mt-10">
           <h2 className="text-sm font-medium text-foreground mb-4">Recent Visitors</h2>

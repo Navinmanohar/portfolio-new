@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.schemas.contact import ContactCreate, ResumeRequestCreate
 from app.models.contact import ContactMessage, ResumeRequest
-from app.services.email_service import send_resume_email
+from app.services.email_service import send_resume_email, send_contact_notification
 
 router = APIRouter(prefix="/api/contact", tags=["contact"])
 
@@ -19,6 +19,15 @@ async def submit_contact(data: ContactCreate, db: Session = Depends(get_db)):
     )
     db.add(msg)
     db.commit()
+
+    await send_contact_notification(
+        name=data.name,
+        email=data.email,
+        message=data.message,
+        company=data.company,
+        role=data.role,
+    )
+
     return {"status": "ok", "message": "Message received"}
 
 

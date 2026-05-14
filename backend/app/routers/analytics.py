@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.visitor import VisitorLog
 from app.models.analytics import ProjectView
+from app.models.contact import ContactMessage, ResumeRequest
 from app.schemas.contact import VisitorLogCreate, ProjectViewCreate
 from app.services.auth import get_current_user
 from app.services.analytics import get_dashboard_stats
@@ -42,6 +43,48 @@ async def track_project_view(data: ProjectViewCreate, db: Session = Depends(get_
 @router.get("/dashboard")
 async def dashboard(db: Session = Depends(get_db), user=Depends(get_current_user)):
     return get_dashboard_stats(db)
+
+
+@router.get("/messages")
+async def get_messages(db: Session = Depends(get_db), user=Depends(get_current_user)):
+    msgs = (
+        db.query(ContactMessage)
+        .order_by(ContactMessage.created_at.desc())
+        .limit(50)
+        .all()
+    )
+    return [
+        {
+            "id": m.id,
+            "name": m.name,
+            "email": m.email,
+            "message": m.message,
+            "company": m.company,
+            "role": m.role,
+            "created_at": m.created_at.isoformat() if m.created_at else None,
+        }
+        for m in msgs
+    ]
+
+
+@router.get("/resume-requests")
+async def get_resume_requests(db: Session = Depends(get_db), user=Depends(get_current_user)):
+    reqs = (
+        db.query(ResumeRequest)
+        .order_by(ResumeRequest.created_at.desc())
+        .limit(50)
+        .all()
+    )
+    return [
+        {
+            "id": r.id,
+            "email": r.email,
+            "company": r.company,
+            "sent": r.sent,
+            "created_at": r.created_at.isoformat() if r.created_at else None,
+        }
+        for r in reqs
+    ]
 
 
 @router.get("/visitors")
