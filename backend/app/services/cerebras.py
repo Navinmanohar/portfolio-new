@@ -8,7 +8,7 @@ settings = get_settings()
 
 async def chat_completion(
     messages: list[dict],
-    temperature: float = 0.2,
+    temperature: float = 0.7,
     max_tokens: int = 1024,
     stream: bool = False,
 ) -> dict:
@@ -36,7 +36,7 @@ async def chat_completion(
 
 async def chat_completion_stream(
     messages: list[dict],
-    temperature: float = 0.2,
+    temperature: float = 0.7,
     max_tokens: int = 1024,
 ) -> AsyncGenerator[str, None]:
     async with httpx.AsyncClient(timeout=120.0) as client:

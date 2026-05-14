@@ -62,15 +62,15 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
         db.add(req)
         db.commit()
         if sent:
-            reply = f"I've sent Navin's details and resume to {to_email}. Check your inbox!"
+            reply = f"Just sent Navin's details and resume to {to_email}. You should receive it shortly — let me know if you have any specific questions about his experience in the meantime."
         else:
-            reply = "Sorry, I couldn't send the email right now. Please try using the 'Request Resume' button on the contact section."
+            reply = "Hmm, I wasn't able to send it right now. You can try the 'Request Resume' form in the contact section — or feel free to share your email again and I'll retry."
         db.add(ChatMessage(session_id=session_id, role="assistant", content=reply))
         db.commit()
         return ChatResponse(reply=reply, session_id=session_id)
 
     if is_send_request and not email_match:
-        reply = "Sure! Please share your email address and I'll send Navin's details and resume right away."
+        reply = "Absolutely — just share your email address and I'll send Navin's details and resume over right away."
         db.add(ChatMessage(session_id=session_id, role="assistant", content=reply))
         db.commit()
         return ChatResponse(reply=reply, session_id=session_id)

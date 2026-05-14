@@ -56,6 +56,14 @@ export default function AdminDashboard() {
   const [error, setError] = useState("");
   const router = useRouter();
 
+  function formatDate(dateStr: string) {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString("en-GB", {
+      day: "numeric", month: "short", year: "numeric",
+      hour: "2-digit", minute: "2-digit",
+    });
+  }
+
   useEffect(() => {
     const token = localStorage.getItem("admin_token");
     if (!token) {
@@ -190,7 +198,7 @@ export default function AdminDashboard() {
                       <td className="py-2 pr-4"><a href={`mailto:${m.email}`} className="text-accent hover:underline">{m.email}</a></td>
                       <td className="py-2 pr-4">{m.company || "—"}</td>
                       <td className="py-2 pr-4 max-w-[300px] truncate" title={m.message}>{m.message}</td>
-                      <td className="py-2 whitespace-nowrap">{m.created_at ? new Date(m.created_at).toLocaleString() : "—"}</td>
+                      <td className="py-2 whitespace-nowrap">{m.created_at ? formatDate(m.created_at) : "—"}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -220,7 +228,7 @@ export default function AdminDashboard() {
                       <td className="py-2 pr-4"><a href={`mailto:${r.email}`} className="text-accent hover:underline">{r.email}</a></td>
                       <td className="py-2 pr-4">{r.company || "—"}</td>
                       <td className="py-2 pr-4">{r.sent ? <span className="text-green-500">Yes</span> : <span className="text-red-400">No</span>}</td>
-                      <td className="py-2 whitespace-nowrap">{r.created_at ? new Date(r.created_at).toLocaleString() : "—"}</td>
+                      <td className="py-2 whitespace-nowrap">{r.created_at ? formatDate(r.created_at) : "—"}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -258,7 +266,7 @@ export default function AdminDashboard() {
                       <td className="py-2 pr-4 font-mono text-foreground/50">{v.page || "/"}</td>
                       <td className="py-2 pr-4">{v.browser || "—"}</td>
                       <td className="py-2 pr-4">{v.device || "—"}</td>
-                      <td className="py-2 whitespace-nowrap">{v.visited_at ? new Date(v.visited_at).toLocaleString() : "—"}</td>
+                      <td className="py-2 whitespace-nowrap">{v.visited_at ? formatDate(v.visited_at) : "—"}</td>
                     </tr>
                   ))}
                 </tbody>
