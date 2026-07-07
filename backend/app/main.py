@@ -1,8 +1,11 @@
+import asyncio
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 from app.database import engine, Base
 from app.routers import chat, contact, analytics, auth
+from app.services.cleanup import cleanup_old_sessions
 
 Base.metadata.create_all(bind=engine)
 
@@ -11,10 +14,19 @@ with engine.connect() as conn:
         conn.execute(text(f"ALTER TABLE visitor_logs ADD COLUMN IF NOT EXISTS {col} {dtype}"))
     conn.commit()
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    task = asyncio.create_task(cleanup_old_sessions())
+    yield
+    task.cancel()
+
+
 app = FastAPI(
     title="Navin Manohar — Portfolio API",
     description="AI-powered portfolio backend with RAG, analytics, and smart contact",
     version="1.0.0",
+    lifespan=lifespan,
 )
 
 app.add_middleware(

@@ -49,7 +49,7 @@ def _build_html(recipient_name: str) -> str:
               </p>
 
               <p style="margin:0 0 16px;">
-                2+ years of experience building production-grade APIs, AI applications, multi-tenant systems, and workflow automation &mdash; with measurable impact: 150+ APIs.
+                2+ years of experience building production-grade APIs, AI applications, multi-tenant systems, and workflow automation &mdash; with measurable impact: 200+ APIs.
               </p>
 
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0;">
@@ -80,7 +80,7 @@ def _build_html(recipient_name: str) -> str:
                       &#x2728; Highlights
                     </p>
                     <table role="presentation" cellpadding="0" cellspacing="0">
-                      <tr><td style="padding:3px 0;color:#475569;font-size:14px;">&bull; Built 150+ production-grade REST APIs</td></tr>
+                      <tr><td style="padding:3px 0;color:#475569;font-size:14px;">&bull; Built 200+ production-grade REST APIs</td></tr>
                       <tr><td style="padding:3px 0;color:#475569;font-size:14px;">&bull; Developed AI-powered hiring and HRMS assistant systems</td></tr>
                       <tr><td style="padding:3px 0;color:#475569;font-size:14px;">&bull; Experience with FastAPI, Node.js, PostgreSQL, Redis, RAG, and LLM integrations</td></tr>
                       <tr><td style="padding:3px 0;color:#475569;font-size:14px;">&bull; Designed scalable multi-tenant workflow and automation systems</td></tr>
