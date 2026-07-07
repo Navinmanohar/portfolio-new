@@ -99,7 +99,7 @@ export default function Hero() {
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
               <a
-                href="/Navin_Manohar_Resume_Updated_compressed.pdf"
+                href="/Navin_Manohar_Updated_resume.pdf"
                 target="_blank"
                 className="inline-flex items-center gap-1.5 text-sm font-medium border border-border text-foreground/80 h-9 px-5 rounded-lg hover:bg-muted hover:text-foreground transition-all"
               >
