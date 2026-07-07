@@ -46,7 +46,7 @@ export default function AIChatDialog({ open, onClose }: { open: boolean; onClose
       setMessages([
         {
           role: "assistant",
-          content: "Hi! I'm Navin's AI assistant. Ask me anything about his experience, projects, skills, or engineering background.",
+          content: "Hi! I'm Navin's AI assistant. Ask me anything about his experience, projects, skills, or engineering background.\n\nYou can also ask me to send his resume to your email — just say \"send resume\" and share your email address.",
         },
       ]);
       setInitialLoading(false);
@@ -183,7 +183,7 @@ export default function AIChatDialog({ open, onClose }: { open: boolean; onClose
                   el.style.height = Math.min(el.scrollHeight, 128) + "px";
                 }}
                 onKeyDown={handleKeyDown}
-                placeholder="Ask about my experience..."
+                placeholder="Ask about experience or say 'send resume'..."
                 rows={1}
                 className="flex-1 bg-muted border border-border rounded-xl px-3 py-2 text-sm text-foreground placeholder:text-foreground/30 outline-none focus:border-accent/50 transition-colors resize-none max-h-32"
               />
