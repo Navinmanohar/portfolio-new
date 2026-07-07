@@ -55,6 +55,20 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
         for phrase in ["your email", "provide your email", "share your email", "what.*email"]
     )
 
+    # If send request but no email in current message, find last email from chat history
+    if is_send_request and not email_match:
+        all_messages = (
+            db.query(ChatMessage)
+            .filter_by(session_id=session_id)
+            .order_by(ChatMessage.created_at)
+            .all()
+        )
+        for msg in reversed(all_messages):
+            found = re.search(r"[\w.+-]+@[\w-]+\.[\w.-]+", msg.content)
+            if found and msg.role == "user":
+                email_match = found
+                break
+
     if email_match and (is_send_request or asked_for_email):
         to_email = email_match.group()
         sent = await send_resume_email(to_email, "Chat Request")
