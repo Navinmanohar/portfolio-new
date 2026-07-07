@@ -3,6 +3,10 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, FileText, GitBranch, Sparkles } from "lucide-react";
 import { useChat } from "@/components/ai-assistant/ChatContext";
+import { useTheme } from "@/components/ThemeProvider";
+import Particles, { ParticlesProvider } from "@tsparticles/react";
+import { loadSlim } from "@tsparticles/slim";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 const floatingCards = [
   { label: "RAG Systems", sub: "Vector Search", x: "10%", y: "20%", delay: 0 },
@@ -13,13 +17,86 @@ const floatingCards = [
 
 export default function Hero() {
   const { open: openChat } = useChat();
+  const { theme } = useTheme();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const updateSize = () => setIsMobile(window.innerWidth < 768);
+
+    updateSize();
+    window.addEventListener("resize", updateSize);
+
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
+  const particlesInit = useCallback(async (engine: any) => {
+    await loadSlim(engine);
+  }, []);
+
+  const particlesOptions = useMemo(() => ({
+    fullScreen: { enable: false },
+    detectRetina: true,
+    fpsLimit: 60,
+    particles: {
+      number: {
+        value: isMobile ? 40 : 80,
+        density: { enable: false },
+      },
+      color: { value: theme === "dark" ? "#1D9E75" : "#1a7a5e" },
+      opacity: { value: theme === "dark" ? 0.5 : 0.8 },
+      shape: { type: "circle" },
+      size: { value: { min: 2, max: 4 } },
+      links: {
+        enable: true,
+        color: theme === "dark" ? "#1D9E75" : "#0D6E50",
+        opacity: theme === "dark" ? 0.4 : 0.5,
+        width: theme === "dark" ? 1 : 1.5,
+      },
+      move: {
+        enable: true,
+        speed: 1.5,
+        direction: "none",
+        random: true,
+        outModes: { default: "out" },
+        attract: { enable: false },
+      },
+    },
+    interactivity: {
+      events: {
+        onHover: { enable: true, mode: "repulse" },
+        onClick: { enable: false },
+        resize: true,
+      },
+      modes: {
+        repulse: { distance: 150, duration: 0.4 },
+      },
+    },
+  }), [isMobile, theme]);
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
+      {/* Particle canvas positioned behind hero content */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none w-full h-full"
+        style={{
+          backgroundColor:
+            theme === "dark" ? "transparent" : "rgba(13, 110, 84, 0.03)",
+        }}
+      >
+        <div className="absolute inset-0 w-full h-full">
+          <ParticlesProvider init={particlesInit}>
+            <Particles
+              id="hero-particles"
+              options={particlesOptions as any}
+              className="w-full h-full"
+            />
+          </ParticlesProvider>
+        </div>
+      </div>
       <div className="absolute inset-0 bg-gradient-to-b from-accent/[0.03] via-transparent to-transparent pointer-events-none" />
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-accent/[0.02] rounded-full blur-3xl pointer-events-none" />
 
-      <div className="section-container w-full pt-20 pb-20 md:pt-24">
+      <div className="section-container w-full py-0 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="relative z-10">
             <motion.div

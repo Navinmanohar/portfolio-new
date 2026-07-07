@@ -47,7 +47,7 @@ export default function About() {
             <span className="text-gradient-blue">AI Engineer</span>
           </h2>
 
-          <p className="text-base sm:text-lg text-foreground/60 leading-relaxed max-w-3xl mb-10">
+          <p className="text-base sm:text-lg text-foreground/60 leading-relaxed max-w-3xl mb-8">
             From workflow engines and RBAC architectures to RAG pipelines, agentic chatbots, 
             and LLM-powered systems — I engineer production-grade solutions that bridge the gap 
             between AI capabilities and enterprise reliability. Proficient in Node.js, FastAPI, 

@@ -61,7 +61,7 @@ export default function Contact() {
             <span className="text-gradient-blue">intelligent</span>
           </h2>
 
-          <p className="text-sm sm:text-base text-foreground/50 leading-relaxed mb-8">
+          <p className="text-sm sm:text-base text-foreground/50 leading-relaxed mb-6">
             Available for AI Engineering, Full Stack Development,
             and Backend Engineering roles.
           </p>
@@ -73,7 +73,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="max-w-lg mx-auto mb-10"
+          className="max-w-lg mx-auto mb-8"
         >
           {sent ? (
             <div className="bg-card border border-border rounded-2xl p-6 text-center">
@@ -178,7 +178,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="flex flex-wrap justify-center gap-3 mb-10"
+          className="flex flex-wrap justify-center gap-3 mb-8"
         >
           <button
             onClick={() => setResumeOpen(true)}

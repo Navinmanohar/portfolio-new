@@ -13,7 +13,8 @@ import {
   Cog,
   Search,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import VanillaTilt from "vanilla-tilt";
 
 const projects = [
   {
@@ -173,6 +174,32 @@ const projects = [
 export default function FeaturedProjects() {
   const [archOpen, setArchOpen] = useState(false);
 
+  useEffect(() => {
+    const elements = Array.from(document.querySelectorAll<HTMLElement>(".tilt-card"));
+
+    elements.forEach((element) => {
+      VanillaTilt.init(element, {
+        max: 10,
+        speed: 400,
+        perspective: 1000,
+        glare: true,
+        "max-glare": 0.12,
+        scale: 1.02,
+        reverse: false,
+        transition: true,
+        gyroscope: false,
+      });
+    });
+
+    return () => {
+      elements.forEach((element) => {
+        (element as HTMLElement & {
+          vanillaTilt?: { destroy: () => void };
+        }).vanillaTilt?.destroy();
+      });
+    };
+  }, []);
+
   return (
     <section id="projects" className="section-padding relative">
       <div className="section-container">
@@ -182,7 +209,7 @@ export default function FeaturedProjects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
-          className="mb-14"
+          className="mb-10"
         >
           <span className="text-xs font-medium text-foreground/30 tracking-widest uppercase mb-4 block">
             Featured Projects
@@ -199,7 +226,7 @@ export default function FeaturedProjects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mb-10"
+          className="mb-8"
         >
           <button
             onClick={() => setArchOpen(!archOpen)}
@@ -315,7 +342,7 @@ export default function FeaturedProjects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="group relative rounded-2xl border border-border bg-card p-6 sm:p-8 hover:border-foreground/20 transition-all duration-500"
+              className="group relative rounded-2xl border border-border bg-card p-6 sm:p-8 hover:border-foreground/20 transition-all duration-500 tilt-card"
             >
               {project.inProgress && (
                 <div className="absolute top-6 right-6 inline-flex items-center gap-1.5 text-[10px] font-medium text-amber-400/90 bg-amber-400/10 border border-amber-400/20 rounded-full px-2.5 py-1">

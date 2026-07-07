@@ -18,6 +18,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [mounted, setMounted] = useState(false);
   const { theme, toggle } = useTheme();
   const { open: openChat } = useChat();
 
@@ -45,6 +46,20 @@ export default function Navbar() {
     }
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const themeToggleContent = mounted ? (
+    theme === "dark" ? (
+      <Sun className="w-3.5 h-3.5 text-foreground/70" />
+    ) : (
+      <Moon className="w-3.5 h-3.5 text-foreground/70" />
+    )
+  ) : (
+    <div className="w-8 h-8" />
+  );
 
   return (
     <motion.header
@@ -86,11 +101,7 @@ export default function Navbar() {
             className="flex items-center justify-center w-8 h-8 rounded-lg border border-border hover:bg-muted transition-all"
             aria-label="Toggle theme"
           >
-            {theme === "dark" ? (
-              <Sun className="w-3.5 h-3.5 text-foreground/70" />
-            ) : (
-              <Moon className="w-3.5 h-3.5 text-foreground/70" />
-            )}
+            {themeToggleContent}
           </button>
           <button
             onClick={openChat}
@@ -113,11 +124,7 @@ export default function Navbar() {
             className="flex items-center justify-center w-8 h-8 rounded-lg border border-border hover:bg-muted transition-all"
             aria-label="Toggle theme"
           >
-            {theme === "dark" ? (
-              <Sun className="w-3.5 h-3.5 text-foreground/70" />
-            ) : (
-              <Moon className="w-3.5 h-3.5 text-foreground/70" />
-            )}
+            {themeToggleContent}
           </button>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}

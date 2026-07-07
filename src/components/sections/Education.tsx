@@ -41,7 +41,7 @@ export default function Education() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
-          className="mb-14"
+          className="mb-10"
         >
           <span className="text-xs font-medium text-foreground/30 tracking-widest uppercase mb-4 block">
             Education
@@ -52,7 +52,7 @@ export default function Education() {
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-10">
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
           {education.map((edu, idx) => (
             <motion.div
               key={edu.school}

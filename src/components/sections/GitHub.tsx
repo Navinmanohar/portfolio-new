@@ -37,7 +37,7 @@ export default function GitHub() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
-          className="mb-10"
+          className="mb-8"
         >
           <span className="text-xs font-medium text-foreground/30 tracking-widest uppercase mb-4 block">
             Code
@@ -96,7 +96,7 @@ export default function GitHub() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.4, delay: 0.3 }}
-          className="mt-8"
+          className="mt-6"
         >
           <div className="rounded-xl border border-border bg-card p-5">
             <div className="flex items-center justify-between mb-4">
