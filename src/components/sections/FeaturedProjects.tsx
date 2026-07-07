@@ -17,6 +17,40 @@ import { useState } from "react";
 
 const projects = [
   {
+    title: "GoEMP HRMS",
+    subtitle: "Enterprise HRMS Platform + AI Agentic Chatbot",
+    inProgress: true,
+    description:
+      "Enterprise HRMS platform with multi-tenant architecture — Attendance, Leave Management, Auto Payroll Processing, Contract Management, Help Desk Ticketing, and Rota/Shift Management with Agentic bot.",
+    metrics: [
+      { value: "200+", label: "REST APIs", icon: Layers },
+      { value: "AI Agent", label: "Chatbot with RAG", icon: Brain },
+      { value: "Multi-level", label: "Workflow Engine", icon: Cpu },
+    ],
+    features: [
+      "Multi-level workflow engine (Leave, Expense, Assets)",
+      "RBAC & team hierarchy",
+      "Redis caching & PostgreSQL optimization",
+      "Cron automation & scheduling",
+      "Multi-tenant architecture",
+      "AI agentic chatbot with RAG & tool calling",
+      "LLM-powered HR policy Q&A & employee support",
+      "Persistent AI chat with context-aware responses",
+    ],
+    tech: [
+      "Node.js",
+      "Express.js",
+      "PostgreSQL",
+      "Sequelize",
+      "Redis",
+      "Python",
+      "LangChain",
+      "FastAPI",
+      "Vector DB",
+    ],
+    github: "https://github.com/Navinmanohar",
+  },
+  {
     title: "HireFlow AI",
     subtitle: "Intelligent Hiring Platform",
     inProgress: true,
@@ -96,40 +130,6 @@ const projects = [
       "Joblib",
     ],
     github: "https://github.com/Navinmanohar/sentiment-analyzer",
-  },
-  {
-    title: "GoEMP HRMS",
-    subtitle: "Enterprise HRMS Platform + AI Agentic Chatbot",
-    inProgress: true,
-    description:
-      "Enterprise HRMS platform with multi-tenant architecture — Attendance, Leave Management, Auto Payroll Processing, Contract Management, Help Desk Ticketing, and Rota/Shift Management with Agentic bot.",
-    metrics: [
-      { value: "200+", label: "REST APIs", icon: Layers },
-      { value: "AI Agent", label: "Chatbot with RAG", icon: Brain },
-      { value: "Multi-level", label: "Workflow Engine", icon: Cpu },
-    ],
-    features: [
-      "Multi-level workflow engine (Leave, Expense, Assets)",
-      "RBAC & team hierarchy",
-      "Redis caching & PostgreSQL optimization",
-      "Cron automation & scheduling",
-      "Multi-tenant architecture",
-      "AI agentic chatbot with RAG & tool calling",
-      "LLM-powered HR policy Q&A & employee support",
-      "Persistent AI chat with context-aware responses",
-    ],
-    tech: [
-      "Node.js",
-      "Express.js",
-      "PostgreSQL",
-      "Sequelize",
-      "Redis",
-      "Python",
-      "LangChain",
-      "FastAPI",
-      "Vector DB",
-    ],
-    github: "https://github.com/Navinmanohar",
   },
   {
     title: "Canteen Web App",
