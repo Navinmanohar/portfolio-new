@@ -13,6 +13,8 @@ class Settings(BaseSettings):
     portfolio_url: str = "https://portfolio-new-jscv.onrender.com"
     embedding_model: str = "all-MiniLM-L6-v2"
     cerebras_model: str = "llama3.1-8b"
+    gemini_api_key: str = ""
+    gemini_model: str = "gemini-2.5-pro"
 
     class Config:
         env_file = Path(__file__).resolve().parent.parent / ".env"

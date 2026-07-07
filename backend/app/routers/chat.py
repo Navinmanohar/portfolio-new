@@ -7,7 +7,7 @@ from app.schemas.chat import ChatRequest, ChatResponse, MessageOut
 from app.models.chat import ChatSession, ChatMessage
 from app.models.contact import ResumeRequest
 from app.services.rag import build_rag_messages
-from app.services.cerebras import chat_completion
+from app.services.chat import chat_completion
 from app.services.email_service import send_resume_email
 
 router = APIRouter(prefix="/api/chat", tags=["chat"])
