@@ -24,7 +24,7 @@ const cards = [
     title: "Backend Architecture",
     items: [
       "FastAPI & Node.js Services",
-      "Multi-tenant APIs (150+)",
+      "Multi-tenant APIs (200+)",
       "RBAC & Auth Systems",
       "Workflow Engines",
       "PostgreSQL + pgvector",

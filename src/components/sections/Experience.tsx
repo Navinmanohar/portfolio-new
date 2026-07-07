@@ -11,7 +11,7 @@ const experiences = [
     description:
       "Leading backend development for an enterprise HRMS platform (GoEMP). Designing and building scalable APIs, workflow engines, and multi-tenant architecture serving multiple organizations.",
     impact: [
-      { value: "150+", label: "REST APIs designed & deployed", icon: Briefcase },
+      { value: "200+", label: "REST APIs designed & deployed", icon: Briefcase },
       { value: "45%", label: "Workflow efficiency improvement", icon: TrendingUp },
       { value: "70%", label: "Scheduling automation", icon: Clock },
       { value: "30%", label: "API latency reduction", icon: Zap },

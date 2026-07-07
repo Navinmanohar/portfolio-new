@@ -102,9 +102,9 @@ const projects = [
     subtitle: "Enterprise HRMS Platform + AI Agentic Chatbot",
     inProgress: true,
     description:
-      "Enterprise HRMS platform with multi-tenant architecture — now building an AI agentic chatbot powered by LLMs to automate HR operations, employee support, and policy Q&A using RAG.",
+      "Enterprise HRMS platform with multi-tenant architecture — Attendance, Leave Management, Auto Payroll Processing, Contract Management, Help Desk Ticketing, and Rota/Shift Management with Agentic bot.",
     metrics: [
-      { value: "150+", label: "REST APIs", icon: Layers },
+      { value: "200+", label: "REST APIs", icon: Layers },
       { value: "AI Agent", label: "Chatbot with RAG", icon: Brain },
       { value: "Multi-level", label: "Workflow Engine", icon: Cpu },
     ],
