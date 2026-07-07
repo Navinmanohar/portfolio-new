@@ -53,21 +53,21 @@ def _build_resume_html(to_email: str, company: str | None = None) -> str:
 </head>
 <body style="margin:0;padding:0;background-color:#f3f4f6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
-         style="background-color:#f3f4f6;padding:32px 16px;">
+         style="background-color:#f3f4f6;padding:40px 20px;">
     <tr>
       <td align="center">
 
         <!-- Card -->
         <table role="presentation" width="100%"
-               style="max-width:580px;background-color:#ffffff;border-radius:10px;
+               style="max-width:720px;background-color:#ffffff;border-radius:12px;
                       overflow:hidden;border:1px solid #e5e7eb;">
 
           <!-- Header -->
           <tr>
-            <td style="padding:28px 36px;border-bottom:1px solid #f0f0f0;">
-              <p style="margin:0;font-size:18px;font-weight:700;color:#111827;
+            <td style="padding:36px 44px;border-bottom:1px solid #f0f0f0;">
+              <p style="margin:0;font-size:22px;font-weight:700;color:#111827;
                          letter-spacing:-0.3px;">Navin Manohar</p>
-              <p style="margin:4px 0 0;font-size:13px;color:#6b7280;">
+              <p style="margin:6px 0 0;font-size:14px;color:#6b7280;">
                 AI Engineer &nbsp;&middot;&nbsp; Backend Developer &nbsp;&middot;&nbsp; Full Stack
               </p>
             </td>
@@ -75,18 +75,18 @@ def _build_resume_html(to_email: str, company: str | None = None) -> str:
 
           <!-- Body -->
           <tr>
-            <td style="padding:28px 36px;color:#374151;font-size:15px;line-height:1.7;">
+            <td style="padding:36px 44px;color:#374151;font-size:15px;line-height:1.8;">
 
-              <p style="margin:0 0 16px;">Hi {name},</p>
+              <p style="margin:0 0 20px;">Hi {name},</p>
 
-              <p style="margin:0 0 16px;">
+              <p style="margin:0 0 20px;">
                 I noticed you visited my portfolio — I'm sharing my resume below along
                 with a quick overview of my work. Please find my resume attached to this email.
               </p>
 
               {company_line}
 
-              <p style="margin:0 0 16px;">
+              <p style="margin:0 0 20px;">
                 I have 2+ years of experience building production-grade APIs, AI applications,
                 multi-tenant systems, and workflow automation. My recent work spans RAG pipelines,
                 agentic chatbots, LLM integrations, and enterprise backend architecture.
@@ -94,10 +94,10 @@ def _build_resume_html(to_email: str, company: str | None = None) -> str:
 
               <!-- Highlights -->
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
-                     style="margin:24px 0;border:1px solid #e5e7eb;border-radius:8px;
+                     style="margin:28px 0;border:1px solid #e5e7eb;border-radius:8px;
                             overflow:hidden;">
                 <tr>
-                  <td style="padding:16px 20px;background-color:#f9fafb;
+                  <td style="padding:18px 24px;background-color:#f9fafb;
                               border-bottom:1px solid #e5e7eb;">
                     <p style="margin:0;font-size:12px;font-weight:600;color:#374151;
                                text-transform:uppercase;letter-spacing:0.6px;">
@@ -106,28 +106,34 @@ def _build_resume_html(to_email: str, company: str | None = None) -> str:
                   </td>
                 </tr>
                 <tr>
-                  <td style="padding:16px 20px 12px;">
+                  <td style="padding:20px 24px 16px;">
                     <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
                       <tr>
-                        <td style="padding:5px 0;font-size:14px;color:#374151;">
-                          <span style="color:#111827;font-weight:600;">150+</span>
+                        <td style="padding:6px 0;font-size:15px;color:#374151;">
+                          <span style="color:#111827;font-weight:600;">200+</span>
                           &nbsp; production REST APIs designed and deployed
                         </td>
                       </tr>
                       <tr>
-                        <td style="padding:5px 0;font-size:14px;color:#374151;">
+                        <td style="padding:6px 0;font-size:15px;color:#374151;">
                           <span style="color:#111827;font-weight:600;">AI systems</span>
                           &nbsp; — RAG pipelines, agentic chatbots, LLM integrations
                         </td>
                       </tr>
                       <tr>
-                        <td style="padding:5px 0;font-size:14px;color:#374151;">
+                        <td style="padding:6px 0;font-size:15px;color:#374151;">
                           <span style="color:#111827;font-weight:600;">45%</span>
                           &nbsp; workflow efficiency improvement in enterprise HRMS
                         </td>
                       </tr>
                       <tr>
-                        <td style="padding:5px 0;font-size:14px;color:#374151;">
+                        <td style="padding:6px 0;font-size:15px;color:#374151;">
+                          <span style="color:#111827;font-weight:600;">500+</span>
+                          &nbsp; DSA problems solved on LeetCode &amp; HackerRank
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:6px 0;font-size:15px;color:#374151;">
                           <span style="color:#111827;font-weight:600;">Stack</span>
                           &nbsp; — FastAPI, Node.js, PostgreSQL, Redis, LangChain, Next.js
                         </td>
@@ -139,10 +145,10 @@ def _build_resume_html(to_email: str, company: str | None = None) -> str:
 
               <!-- Links -->
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
-                     style="margin:0 0 24px;border:1px solid #e5e7eb;border-radius:8px;
+                     style="margin:0 0 28px;border:1px solid #e5e7eb;border-radius:8px;
                             overflow:hidden;">
                 <tr>
-                  <td style="padding:16px 20px;background-color:#f9fafb;
+                  <td style="padding:18px 24px;background-color:#f9fafb;
                               border-bottom:1px solid #e5e7eb;">
                     <p style="margin:0;font-size:12px;font-weight:600;color:#374151;
                                text-transform:uppercase;letter-spacing:0.6px;">
@@ -151,14 +157,14 @@ def _build_resume_html(to_email: str, company: str | None = None) -> str:
                   </td>
                 </tr>
                 <tr>
-                  <td style="padding:14px 20px 10px;">
+                  <td style="padding:18px 24px 14px;">
                     <table role="presentation" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="padding:4px 0;font-size:14px;color:#374151;
-                                    white-space:nowrap;width:80px;">
+                        <td style="padding:5px 0;font-size:15px;color:#374151;
+                                    white-space:nowrap;width:90px;">
                           Portfolio
                         </td>
-                        <td style="padding:4px 0;font-size:14px;">
+                        <td style="padding:5px 0;font-size:15px;">
                           <a href="{settings.portfolio_url}"
                              style="color:#1d4ed8;text-decoration:none;">
                             {settings.portfolio_url}
@@ -166,8 +172,8 @@ def _build_resume_html(to_email: str, company: str | None = None) -> str:
                         </td>
                       </tr>
                       <tr>
-                        <td style="padding:4px 0;font-size:14px;color:#374151;">GitHub</td>
-                        <td style="padding:4px 0;font-size:14px;">
+                        <td style="padding:5px 0;font-size:15px;color:#374151;">GitHub</td>
+                        <td style="padding:5px 0;font-size:15px;">
                           <a href="https://github.com/Navinmanohar"
                              style="color:#1d4ed8;text-decoration:none;">
                             github.com/Navinmanohar
@@ -175,8 +181,8 @@ def _build_resume_html(to_email: str, company: str | None = None) -> str:
                         </td>
                       </tr>
                       <tr>
-                        <td style="padding:4px 0;font-size:14px;color:#374151;">LinkedIn</td>
-                        <td style="padding:4px 0;font-size:14px;">
+                        <td style="padding:5px 0;font-size:15px;color:#374151;">LinkedIn</td>
+                        <td style="padding:5px 0;font-size:15px;">
                           <a href="https://linkedin.com/in/navin-manohar-48b1a5226"
                              style="color:#1d4ed8;text-decoration:none;">
                             linkedin.com/in/navin-manohar-48b1a5226
@@ -190,13 +196,13 @@ def _build_resume_html(to_email: str, company: str | None = None) -> str:
 
               <!-- CTA Button -->
               <table role="presentation" cellpadding="0" cellspacing="0"
-                     style="margin:0 0 28px;">
+                     style="margin:0 0 32px;">
                 <tr>
-                  <td style="border-radius:6px;background-color:#111827;">
+                  <td style="border-radius:8px;background-color:#111827;">
                     <a href="{settings.portfolio_url}"
-                       style="display:inline-block;padding:11px 24px;
-                              font-size:14px;font-weight:600;color:#ffffff;
-                              text-decoration:none;border-radius:6px;
+                       style="display:inline-block;padding:13px 28px;
+                              font-size:15px;font-weight:600;color:#ffffff;
+                              text-decoration:none;border-radius:8px;
                               letter-spacing:0.1px;">
                       View Full Portfolio &rarr;
                     </a>
@@ -204,23 +210,23 @@ def _build_resume_html(to_email: str, company: str | None = None) -> str:
                 </tr>
               </table>
 
-              <p style="margin:0 0 16px;color:#374151;font-size:15px;">
+              <p style="margin:0 0 20px;color:#374151;font-size:15px;">
                 I would be happy to discuss how my experience can contribute to your
                 team. Feel free to reply to this email or reach out directly.
               </p>
 
               <!-- Signature -->
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
-                     style="margin-top:28px;padding-top:20px;
+                     style="margin-top:32px;padding-top:24px;
                             border-top:1px solid #e5e7eb;">
                 <tr>
                   <td>
-                    <p style="margin:0 0 2px;font-size:15px;font-weight:700;
+                    <p style="margin:0 0 4px;font-size:16px;font-weight:700;
                                color:#111827;">Navin Manohar</p>
-                    <p style="margin:0 0 6px;font-size:13px;color:#6b7280;">
+                    <p style="margin:0 0 8px;font-size:14px;color:#6b7280;">
                       AI Engineer &nbsp;&middot;&nbsp; Backend Developer &nbsp;&middot;&nbsp; Full Stack
                     </p>
-                    <p style="margin:0;font-size:13px;color:#6b7280;">
+                    <p style="margin:0;font-size:14px;color:#6b7280;">
                       <a href="mailto:navinmanohar78086@gmail.com"
                          style="color:#1d4ed8;text-decoration:none;">
                         navinmanohar78086@gmail.com
@@ -245,10 +251,10 @@ def _build_resume_html(to_email: str, company: str | None = None) -> str:
         </table>
 
         <!-- Footer note -->
-        <table role="presentation" width="100%" style="max-width:580px;">
+        <table role="presentation" width="100%" style="max-width:720px;">
           <tr>
-            <td align="center" style="padding:16px 20px;font-size:11px;color:#9ca3af;">
-              You received this because someone visited navinmanohar.dev
+            <td align="center" style="padding:20px 24px;font-size:12px;color:#9ca3af;">
+              You received this because someone visited your portfolio.
             </td>
           </tr>
         </table>
