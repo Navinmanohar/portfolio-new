@@ -158,7 +158,7 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="text-sm text-foreground/40 leading-relaxed max-w-xl mb-8"
             >
-              2+ years of experience building production-grade APIs, AI applications, multi-tenant systems, and workflow automation — with measurable impact: 200+ APIs, 45% efficiency gains, and end-to-end AI platforms.
+              2+ years of experience building production-grade APIs, AI applications, multi-tenant systems, and workflow automation — with measurable impact: 1500+ APIs, 45% efficiency gains, and end-to-end AI platforms.
             </motion.p>
 
             <motion.div
@@ -255,7 +255,7 @@ export default function Hero() {
                     <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
                     <span className="text-xs text-foreground/50">AI Systems Active</span>
                   </div>
-                  <div className="text-2xl font-medium text-foreground mb-1">200+</div>
+                  <div className="text-2xl font-medium text-foreground mb-1">1500+</div>
                   <div className="text-[11px] text-foreground/40">
                     REST APIs & AI Tools Deployed
                   </div>

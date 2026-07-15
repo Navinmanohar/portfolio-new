@@ -20,7 +20,7 @@ const repos = [
   },
   {
     name: "goemp-hrms-api",
-    desc: "Enterprise HRMS — 200+ REST APIs, workflow engine, RBAC, Redis caching, cron automation.",
+    desc: "Enterprise HRMS — 1500+ REST APIs, workflow engine, RBAC, Redis caching, cron automation.",
     lang: "JavaScript",
     stars: 15,
     forks: 5,

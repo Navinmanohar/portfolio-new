@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Navin Manohar | AI Engineer | Full Stack Developer | Backend Developer",
   description:
-    "AI Engineer | Full Stack Developer | Backend Developer with 2+ years experience building production-grade AI systems, RAG pipelines, agentic AI, FastAPI/Node.js backends, and scalable APIs. Built 200+ APIs, AI hiring platforms, and enterprise systems.",
+    "AI Engineer | Full Stack Developer | Backend Developer with 2+ years experience building production-grade AI systems, RAG pipelines, agentic AI, FastAPI/Node.js backends, and scalable APIs. Built 1500+ APIs, AI hiring platforms, and enterprise systems.",
   keywords: [
     "AI Engineer",
     "Full Stack Developer",

@@ -22,7 +22,7 @@ const highlights = [
   {
     icon: Workflow,
     label: "Production Impact",
-    desc: "200+ APIs, 45% efficiency gains, 70% scheduling automation, 30% latency reduction.",
+    desc: "1500+ APIs, 45% efficiency gains, 70% scheduling automation, 30% latency reduction.",
   },
 ];
 

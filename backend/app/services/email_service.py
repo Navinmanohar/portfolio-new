@@ -110,7 +110,7 @@ def _build_resume_html(to_email: str, company: str | None = None) -> str:
                     <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
                       <tr>
                         <td style="padding:6px 0;font-size:15px;color:#374151;">
-                          <span style="color:#111827;font-weight:600;">200+</span>
+                          <span style="color:#111827;font-weight:600;">1500+</span>
                           &nbsp; production REST APIs designed and deployed
                         </td>
                       </tr>
