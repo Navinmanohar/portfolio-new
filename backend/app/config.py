@@ -15,6 +15,8 @@ class Settings(BaseSettings):
     cerebras_model: str = "llama3.1-8b"
     gemini_api_key: str = ""
     gemini_model: str = "gemini-2.5-pro"
+    nvidia_api_key: str = ""
+    nvidia_model: str = "nvidia/llama-3.3-nemotron-super-49b-v1.5"
 
     class Config:
         env_file = Path(__file__).resolve().parent.parent / ".env"
